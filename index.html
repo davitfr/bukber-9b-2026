@@ -1,74 +1,121 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bukber Alumni 9B 2026</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: #f5f1e8;
-      text-align: center;
-      color: #333;
-    }
-    .container {
-      padding: 40px 20px;
-    }
-    h1 {
-      font-size: 28px;
-      margin-bottom: 10px;
-    }
-    .theme {
-      font-style: italic;
-      color: #2e7d32;
-      margin-bottom: 30px;
-    }
-    .card {
-      background: white;
-      padding: 20px;
-      border-radius: 15px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-      max-width: 400px;
-      margin: auto;
-    }
-    .btn {
-      display: inline-block;
-      margin-top: 20px;
-      padding: 12px 20px;
-      background: #2e7d32;
-      color: white;
-      text-decoration: none;
-      border-radius: 30px;
-    }
-    .footer {
-      margin-top: 40px;
-      font-size: 14px;
-      color: #777;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bukber Alumni 9B</title>
+
+<style>
+body {
+    margin:0;
+    font-family: 'Segoe UI', sans-serif;
+    text-align:center;
+    color:#333;
+    background: url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1') no-repeat center center/cover;
+}
+
+.overlay {
+    background: rgba(255,255,255,0.85);
+    min-height:100vh;
+    padding:40px 20px;
+}
+
+.card {
+    background:white;
+    padding:25px;
+    border-radius:20px;
+    max-width:400px;
+    margin:20px auto;
+    box-shadow:0 10px 25px rgba(0,0,0,0.1);
+}
+
+button {
+    background:#2e7d32;
+    color:white;
+    border:none;
+    padding:12px 25px;
+    border-radius:30px;
+    font-size:16px;
+    cursor:pointer;
+}
+
+button:hover {
+    background:#1b5e20;
+}
+
+.gallery img {
+    width:100%;
+    max-width:250px;
+    border-radius:15px;
+    margin:10px;
+}
+
+#countdown {
+    font-size:18px;
+    margin-top:10px;
+    font-weight:bold;
+    color:#2e7d32;
+}
+</style>
 </head>
+
 <body>
 
-<div class="container">
-  <h1>BUKA BERSAMA ALUMNI</h1>
-  <h2>Kelas 9B MTsN 02 Brebes</h2>
-  <div class="theme">✨ Back to Memory School ✨</div>
+<div class="overlay">
 
-  <div class="card">
-    <p><strong>Hari/Tanggal:</strong><br>Senin, 17 Maret 2026</p>
-    <p><strong>Tempat:</strong><br>Lentera Coffee</p>
-    <p><strong>Waktu:</strong><br>16.30 WIB - Selesai</p>
+<h1>BUKA BERSAMA ALUMNI</h1>
+<h2>Kelas 9B MTsN 02 Brebes</h2>
+<p>✨ Back to Memory School ✨</p>
 
-    <a class="btn" href="https://wa.me/62XXXXXXXXXX">
-      Konfirmasi Kehadiran
-    </a>
-  </div>
+<div id="countdown"></div>
 
-  <div class="footer">
-    Sampai bertemu dan mengenang masa putih biru bersama 🤍
-  </div>
+<div class="card">
+<p><b>Hari/Tanggal:</b><br>Senin, 17 Maret 2026</p>
+<p><b>Tempat:</b><br>Lentera Coffee</p>
+<p><b>Waktu:</b><br>16.30 WIB - Selesai</p>
+<button onclick="konfirmasi()">Konfirmasi Kehadiran</button>
 </div>
+
+<h3>Daftar Alumni Hadir:</h3>
+<ul id="listHadir"></ul>
+
+<h3>Galeri Kenangan</h3>
+<div class="gallery">
+<img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b">
+<img src="https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d">
+<img src="https://images.unsplash.com/photo-1486591978090-8f9d1d3d6f0f">
+</div>
+
+<p>Sampai bertemu dan mengenang masa putih biru 💜</p>
+
+<audio autoplay loop>
+<source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+</audio>
+
+</div>
+
+<script>
+// COUNTDOWN
+var countDate = new Date("March 17, 2026 16:30:00").getTime();
+var x = setInterval(function() {
+    var now = new Date().getTime();
+    var distance = countDate - now;
+
+    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    document.getElementById("countdown").innerHTML =
+    "⏳ " + days + " Hari Lagi Menuju Bukber!";
+}, 1000);
+
+// LIST HADIR
+function konfirmasi(){
+    var nama = prompt("Masukkan Nama Kamu:");
+    if(nama){
+        var li = document.createElement("li");
+        li.textContent = nama + " - Hadir ✅";
+        document.getElementById("listHadir").appendChild(li);
+    }
+}
+</script>
 
 </body>
 </html>
