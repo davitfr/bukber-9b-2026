@@ -40,13 +40,7 @@ body::before {
     cursor:pointer;
 }
 
-#envelope h2 {
-    margin-top:15px;
-}
-
-.hidden {
-    display:none;
-}
+.hidden { display:none; }
 
 /* Bulan */
 .moon {
@@ -89,14 +83,12 @@ button {
 .gallery {
     display:flex;
     overflow-x:auto;
-    scroll-snap-type:x mandatory;
 }
 
 .gallery img {
     width:250px;
     margin:10px;
     border-radius:15px;
-    scroll-snap-align:center;
 }
 
 iframe {
@@ -104,11 +96,22 @@ iframe {
     max-width:400px;
     height:250px;
     border-radius:15px;
-    margin-top:15px;
 }
 
-@media(max-width:480px){
-    h1 { font-size:22px; }
+video {
+    width:90%;
+    max-width:400px;
+    border-radius:15px;
+}
+
+.mosque {
+    position:fixed;
+    bottom:0;
+    width:100%;
+    height:120px;
+    background:url('https://i.ibb.co/0Jmshvb/mosque-silhouette.png') repeat-x;
+    background-size:contain;
+    opacity:0.2;
 }
 </style>
 </head>
@@ -116,7 +119,7 @@ iframe {
 <body>
 
 <!-- Amplop -->
-<div id="envelope" onclick="openInvite()">
+<div id="envelope">
     <div style="font-size:60px;">📩</div>
     <h2>Klik untuk Buka Undangan</h2>
 </div>
@@ -129,25 +132,25 @@ iframe {
 <h2>Kelas 9B MTsN 02 Brebes</h2>
 <p>✨ Back to Memory School ✨</p>
 
-<p style="font-style:italic;">
-"Yā ayyuhalladzīna āmanū kutiba ‘alaikumush-shiyām..."
-(QS. Al-Baqarah:183)
-</p>
+<p><i>يَا أَيُّهَا الَّذِينَ آمَنُوا كُتِبَ عَلَيْكُمُ الصِّيَامُ
+Yā ayyuhalladzīna āmanū kutiba ‘alaikumush-shiyām
+“Wahai orang-orang yang beriman, diwajibkan atas kamu berpuasa…”</i></p>
+
+<div id="countdown" style="font-weight:bold; margin:15px 0; color:#2e7d32;"></div>
 
 <div class="card">
 <p><b>Hari/Tanggal:</b><br>Selasa, 17 Maret 2026</p>
-<p><b>Tempat:</b><br>Lentera Coffee</p>
+<p><b>Tempat:</b><br>Lentera Coffee & Space</p>
 <p><b>Waktu:</b><br>18.00 WIB - Selesai</p>
-
-<button onclick="window.location.href='https://chat.whatsapp.com/JwresQp6B1N7tvLw3kIM76'">
-Gabung Grup WhatsApp
-</button>
+<button onclick="konfirmasi()">Konfirmasi Kehadiran</button>
 </div>
+
+<h3>Jumlah Alumni Hadir: <span id="jumlahHadir">0</span></h3>
+<ul id="listHadir"></ul>
 
 <h3>📍 Lokasi</h3>
 <iframe 
-src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3954.7659507089753!2d109.02787577435365!3d-6.876387194962193!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6fb1e8ed745f7f%3A0xea0a0d4d40c81a0a!2sLentera%20Coffee%20%26%20Space!5e0!3m2!1sid!2sid!4v1700000000000!5m2!1sid!2sid" 
-width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy">
+src="https://www.google.com/maps?q=Lentera+Coffee+%26+Space&output=embed">
 </iframe>
 
 <h3>📸 Galeri Kenangan</h3>
@@ -156,28 +159,88 @@ width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy">
 <img src="kenangan9b.jpeg">
 </div>
 
+<h3>🎥 Video Kenangan</h3>
+<video autoplay muted loop controls>
+<source src="video-kenangan.mp4" type="video/mp4">
+</video>
+
 <p style="margin-top:30px;">
 Sampai bertemu dan mengenang masa putih biru 💜
 </p>
 
 </div>
 
-<audio autoplay loop>
-<source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3" type="audio/mpeg">
+<div class="mosque"></div>
+
+<audio id="bgMusic" loop>
+<source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3" type="audio/mpeg">
 </audio>
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
 <script>
 document.addEventListener("DOMContentLoaded", function() {
+
     const envelope = document.getElementById("envelope");
     const content = document.getElementById("content");
+    const music = document.getElementById("bgMusic");
 
     envelope.addEventListener("click", function() {
         envelope.style.display = "none";
         content.classList.remove("hidden");
+        music.play();
     });
+
+    // COUNTDOWN
+    var countDate = new Date("March 17, 2026 16:30:00").getTime();
+    setInterval(function() {
+        var now = new Date().getTime();
+        var distance = countDate - now;
+
+        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        document.getElementById("countdown").innerHTML =
+        days + " Hari " + hours + " Jam " + minutes + " Menit " + seconds + " Detik";
+    }, 1000);
+
+    // LOAD DATA
+    let hadirList = JSON.parse(localStorage.getItem("hadirList")) || [];
+    let listElement = document.getElementById("listHadir");
+    let jumlahElement = document.getElementById("jumlahHadir");
+
+    hadirList.forEach(nama => {
+        let li = document.createElement("li");
+        li.textContent = nama + " - Hadir ✅";
+        listElement.appendChild(li);
+    });
+
+    jumlahElement.innerText = hadirList.length;
+
+    window.konfirmasi = function(){
+        var nama = prompt("Masukkan Nama Kamu:");
+        if(nama){
+            hadirList.push(nama);
+            localStorage.setItem("hadirList", JSON.stringify(hadirList));
+
+            let li = document.createElement("li");
+            li.textContent = nama + " - Hadir ✅";
+            listElement.appendChild(li);
+
+            jumlahElement.innerText = hadirList.length;
+
+            confetti({
+                particleCount:150,
+                spread:70,
+                origin:{ y:0.6 }
+            });
+        }
+    }
+
 });
 </script>
 
 </body>
 </html>
-
