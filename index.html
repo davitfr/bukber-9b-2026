@@ -57,18 +57,21 @@ body::before {
 }
 
 .overlay {
-    background:rgba(255,255,255,0.93);
+    background: linear-gradient(180deg, rgba(15,32,39,0.95), rgba(32,58,67,0.95));
     min-height:100vh;
     padding:40px 15px;
+    color:white;
 }
 
 .card {
-    background:white;
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(10px);
     padding:20px;
     border-radius:20px;
     max-width:400px;
     margin:20px auto;
-    box-shadow:0 10px 25px rgba(0,0,0,0.15);
+    box-shadow:0 10px 25px rgba(0,0,0,0.4);
+    color:white;
 }
 
 button {
@@ -244,4 +247,5 @@ document.addEventListener("DOMContentLoaded", function() {
 
 </body>
 </html>
+
 
