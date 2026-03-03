@@ -275,6 +275,33 @@ const content = document.getElementById("content");
 const music = document.getElementById("bgMusic");
 music.volume = 0.3;
 
+/* ===== BUKA AMPLOP ===== */
+envelope.addEventListener("click", function(){
+
+    envelope.style.transition = "0.8s ease";
+    envelope.style.opacity = "0";
+
+    setTimeout(()=>{
+        envelope.style.display = "none";
+
+        content.classList.remove("hidden");
+
+        setTimeout(()=>{
+            content.classList.add("show");
+        },200);
+
+        music.play();
+
+        confetti({
+            particleCount:200,
+            spread:100,
+            origin:{ y:0.6 }
+        });
+
+    },800);
+
+});
+
     
 
     // COUNTDOWN
@@ -330,6 +357,7 @@ music.volume = 0.3;
 
 </body>
 </html>
+
 
 
 
