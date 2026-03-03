@@ -244,17 +244,28 @@ const content = document.getElementById("content");
 const music = document.getElementById("bgMusic");
 music.volume = 0.3;
 
-    envelope.addEventListener("click", function() {
-    envelope.style.display = "none";
+    /* Glow Ramadan Premium */
+body::after{
+    content:"";
+    position:fixed;
+    width:300px;
+    height:300px;
+    background: radial-gradient(circle, rgba(245,215,110,0.25), transparent 70%);
+    top:-100px;
+    right:-100px;
+    filter: blur(40px);
+    animation: glowMove 10s infinite alternate;
+    pointer-events:none;
+}
 
-    content.classList.remove("hidden");
-
-    setTimeout(function(){
-        content.classList.add("show");
-    }, 300);
-
-    music.play();
-});
+@keyframes glowMove{
+    from{
+        transform: translateY(0);
+    }
+    to{
+        transform: translateY(40px);
+    }
+}
 
 
     // COUNTDOWN
@@ -310,6 +321,7 @@ music.volume = 0.3;
 
 </body>
 </html>
+
 
 
 
