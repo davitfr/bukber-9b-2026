@@ -167,11 +167,17 @@ Sampai bertemu dan mengenang masa putih biru 💜
 </audio>
 
 <script>
-function openInvite(){
-    document.getElementById("envelope").classList.add("hidden");
-    document.getElementById("content").classList.remove("hidden");
-}
+document.addEventListener("DOMContentLoaded", function() {
+    const envelope = document.getElementById("envelope");
+    const content = document.getElementById("content");
+
+    envelope.addEventListener("click", function() {
+        envelope.style.display = "none";
+        content.classList.remove("hidden");
+    });
+});
 </script>
 
 </body>
 </html>
+
